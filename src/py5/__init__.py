@@ -21,6 +21,7 @@
 """
 py5 is a version of Processing for Python. It makes the Processing Java libraries available to the CPython interpreter using JPype.
 """
+
 from __future__ import annotations
 
 import importlib.metadata
@@ -78,6 +79,11 @@ if not py5_tools.is_jvm_running():
                 NSApplicationActivationPolicyRegular,
                 NSImage,
             )
+            from Foundation import (
+                NSProcessInfo,
+                NSActivityUserInitiated,
+                NSActivityLatencyCritical,
+            )
 
             # this adds a white square to the dock
             app = NSApplication.sharedApplication()
@@ -89,9 +95,15 @@ if not py5_tools.is_jvm_running():
             icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
             app.setApplicationIconImage_(icon_image)
 
+            NSProcessInfo.processInfo().beginActivityWithOptions_reason_(
+                NSActivityUserInitiated | NSActivityLatencyCritical,
+                "py5 sketch rendering",
+            )
+
             # cleanup
             del app, icon_path, icon_url, icon_image
             del NSURL, NSApplication, NSApplicationActivationPolicyRegular, NSImage
+            del NSProcessInfo, NSActivityUserInitiated, NSActivityLatencyCritical
         except:
             pass
 
@@ -19569,26 +19581,11 @@ def begin_shape(*args) -> ContextManager:
     return _py5sketch.begin_shape(*args)
 
 
-@overload
 def begin_closed_shape() -> ContextManager:
     """This method is used to start a custom closed shape.
 
     Underlying Processing method: PApplet.beginShape
 
-    Methods
-    -------
-
-    You can use any of the following signatures:
-
-     * begin_closed_shape() -> ContextManager
-     * begin_closed_shape(kind: int, /) -> ContextManager
-
-    Parameters
-    ----------
-
-    kind: int
-        Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP
-
     Notes
     -----
 
@@ -19601,76 +19598,7 @@ def begin_closed_shape() -> ContextManager:
     not as a context manager, it won't be able to close the shape by making the call
     to `end_shape()`.
     """
-    pass
-
-
-@overload
-def begin_closed_shape(kind: int, /) -> ContextManager:
-    """This method is used to start a custom closed shape.
-
-    Underlying Processing method: PApplet.beginShape
-
-    Methods
-    -------
-
-    You can use any of the following signatures:
-
-     * begin_closed_shape() -> ContextManager
-     * begin_closed_shape(kind: int, /) -> ContextManager
-
-    Parameters
-    ----------
-
-    kind: int
-        Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP
-
-    Notes
-    -----
-
-    This method is used to start a custom closed shape. This method should only be
-    used as a context manager, as shown in the examples. When used as a context
-    manager, this will ensure that `end_shape()` always gets called, just like when
-    using `begin_shape()` as a context manager. The difference is that when exiting,
-    the parameter `CLOSE` will be passed to `end_shape()`, connecting the last
-    vertex to the first. This will close the shape. If this method were to be used
-    not as a context manager, it won't be able to close the shape by making the call
-    to `end_shape()`.
-    """
-    pass
-
-
-def begin_closed_shape(*args) -> ContextManager:
-    """This method is used to start a custom closed shape.
-
-    Underlying Processing method: PApplet.beginShape
-
-    Methods
-    -------
-
-    You can use any of the following signatures:
-
-     * begin_closed_shape() -> ContextManager
-     * begin_closed_shape(kind: int, /) -> ContextManager
-
-    Parameters
-    ----------
-
-    kind: int
-        Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP
-
-    Notes
-    -----
-
-    This method is used to start a custom closed shape. This method should only be
-    used as a context manager, as shown in the examples. When used as a context
-    manager, this will ensure that `end_shape()` always gets called, just like when
-    using `begin_shape()` as a context manager. The difference is that when exiting,
-    the parameter `CLOSE` will be passed to `end_shape()`, connecting the last
-    vertex to the first. This will close the shape. If this method were to be used
-    not as a context manager, it won't be able to close the shape by making the call
-    to `end_shape()`.
-    """
-    return _py5sketch.begin_closed_shape(*args)
+    return _py5sketch.begin_closed_shape()
 
 
 @overload
