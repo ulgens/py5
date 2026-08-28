@@ -846,16 +846,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random() -> float
-         * random(high: float, /) -> float
-         * random(low: float, high: float, /) -> float
+         * random(high: int | np.integer | float, /) -> float
+         * random(low: int | np.integer | float, high: int | np.integer | float, /) -> float
 
         Parameters
         ----------
 
-        high: float
+        high: int | np.integer | float
             upper limit
 
-        low: float
+        low: int | np.integer | float
             lower limit
 
         Notes
@@ -882,7 +882,11 @@ class MathMixin:
         pass
 
     @overload
-    def random(self, high: float, /) -> float:
+    def random(
+        self,
+        high: int | np.integer | float,
+        /,
+    ) -> float:
         """Generates random numbers.
 
         Methods
@@ -891,16 +895,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random() -> float
-         * random(high: float, /) -> float
-         * random(low: float, high: float, /) -> float
+         * random(high: int | np.integer | float, /) -> float
+         * random(low: int | np.integer | float, high: int | np.integer | float, /) -> float
 
         Parameters
         ----------
 
-        high: float
+        high: int | np.integer | float
             upper limit
 
-        low: float
+        low: int | np.integer | float
             lower limit
 
         Notes
@@ -927,7 +931,12 @@ class MathMixin:
         pass
 
     @overload
-    def random(self, low: float, high: float, /) -> float:
+    def random(
+        self,
+        low: int | np.integer | float,
+        high: int | np.integer | float,
+        /,
+    ) -> float:
         """Generates random numbers.
 
         Methods
@@ -936,16 +945,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random() -> float
-         * random(high: float, /) -> float
-         * random(low: float, high: float, /) -> float
+         * random(high: int | np.integer | float, /) -> float
+         * random(low: int | np.integer | float, high: int | np.integer | float, /) -> float
 
         Parameters
         ----------
 
-        high: float
+        high: int | np.integer | float
             upper limit
 
-        low: float
+        low: int | np.integer | float
             lower limit
 
         Notes
@@ -971,7 +980,11 @@ class MathMixin:
         This function makes calls to numpy to generate the random values."""
         pass
 
-    def random(self, *args: float) -> float:
+    @overload
+    def random(
+        self,
+        *args: int | np.integer | float,
+    ) -> float:
         """Generates random numbers.
 
         Methods
@@ -980,16 +993,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random() -> float
-         * random(high: float, /) -> float
-         * random(low: float, high: float, /) -> float
+         * random(high: int | np.integer | float, /) -> float
+         * random(low: int | np.integer | float, high: int | np.integer | float, /) -> float
 
         Parameters
         ----------
 
-        high: float
+        high: int | np.integer | float
             upper limit
 
-        low: float
+        low: int | np.integer | float
             lower limit
 
         Notes
@@ -1039,16 +1052,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_int() -> int
-         * random_int(high: int, /) -> int
-         * random_int(low: int, high: int, /) -> int
+         * random_int(high: int, np.integer, /) -> int
+         * random_int(low: int | np.integer, high: int, np.integer, /) -> int
 
         Parameters
         ----------
 
-        high: int
+        high: int | np.integer
             upper limit
 
-        low: int
+        low: int | np.integer
             lower limit
 
         Notes
@@ -1081,7 +1094,11 @@ class MathMixin:
         pass
 
     @overload
-    def random_int(self, high: int, /) -> int:
+    def random_int(
+        self,
+        high: int | np.integer,
+        /,
+    ) -> int:
         """Generates random integers.
 
         Methods
@@ -1090,16 +1107,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_int() -> int
-         * random_int(high: int, /) -> int
-         * random_int(low: int, high: int, /) -> int
+         * random_int(high: int | np.integer, /) -> int
+         * random_int(low: int | np.integer, high: int | np.integer, /) -> int
 
         Parameters
         ----------
 
-        high: int
+        high: int | np.integer
             upper limit
 
-        low: int
+        low: int | np.integer
             lower limit
 
         Notes
@@ -1132,7 +1149,12 @@ class MathMixin:
         pass
 
     @overload
-    def random_int(self, low: int, high: int, /) -> int:
+    def random_int(
+        self,
+        low: int | np.integer,
+        high: int | np.integer,
+        /,
+    ) -> int:
         """Generates random integers.
 
         Methods
@@ -1141,16 +1163,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_int() -> int
-         * random_int(high: int, /) -> int
-         * random_int(low: int, high: int, /) -> int
+         * random_int(high: int | np.integer, /) -> int
+         * random_int(low: int | np.integer, high: int | np.integer, /) -> int
 
         Parameters
         ----------
 
-        high: int
+        high: int | np.integer
             upper limit
 
-        low: int
+        low: int | np.integer
             lower limit
 
         Notes
@@ -1182,7 +1204,10 @@ class MathMixin:
         This function makes calls to numpy to generate the random integers."""
         pass
 
-    def random_int(self, *args: int) -> int:
+    def random_int(
+        self,
+        *args: int | np.integer,
+    ) -> int:
         """Generates random integers.
 
         Methods
@@ -1191,16 +1216,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_int() -> int
-         * random_int(high: int, /) -> int
-         * random_int(low: int, high: int, /) -> int
+         * random_int(high: int | np.integer, /) -> int
+         * random_int(low: int | np.integer, high: int | np.integer, /) -> int
 
         Parameters
         ----------
 
-        high: int
+        high: int | np.integer
             upper limit
 
-        low: int
+        low: int | np.integer
             lower limit
 
         Notes
@@ -1354,16 +1379,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_gaussian() -> float
-         * random_gaussian(loc: float, /) -> float
-         * random_gaussian(loc: float, scale: float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, int | np.integer | float: float, /) -> float
 
         Parameters
         ----------
 
-        loc: float
+        loc: int | np.integer | float
             average of randomly selected numbers
 
-        scale: float
+        scale: int | np.integer | float
             standard deviation of randomly selected numbers
 
         Notes
@@ -1389,7 +1414,11 @@ class MathMixin:
         pass
 
     @overload
-    def random_gaussian(self, loc: float, /) -> float:
+    def random_gaussian(
+        self,
+        loc: int | np.integer | float,
+        /,
+    ) -> float:
         """Generates random gaussian values.
 
         Methods
@@ -1398,16 +1427,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_gaussian() -> float
-         * random_gaussian(loc: float, /) -> float
-         * random_gaussian(loc: float, scale: float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, int | np.integer | float: float, /) -> float
 
         Parameters
         ----------
 
-        loc: float
+        loc: int | np.integer | float
             average of randomly selected numbers
 
-        scale: float
+        scale: int | np.integer | float
             standard deviation of randomly selected numbers
 
         Notes
@@ -1433,7 +1462,12 @@ class MathMixin:
         pass
 
     @overload
-    def random_gaussian(self, loc: float, scale: float, /) -> float:
+    def random_gaussian(
+        self,
+        loc: int | np.integer | float,
+        scale: int | np.integer | float,
+        /,
+    ) -> float:
         """Generates random gaussian values.
 
         Methods
@@ -1442,16 +1476,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_gaussian() -> float
-         * random_gaussian(loc: float, /) -> float
-         * random_gaussian(loc: float, scale: float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, int | np.integer | float: float, /) -> float
 
         Parameters
         ----------
 
-        loc: float
+        loc: int | np.integer | float
             average of randomly selected numbers
 
-        scale: float
+        scale: int | np.integer | float
             standard deviation of randomly selected numbers
 
         Notes
@@ -1476,7 +1510,10 @@ class MathMixin:
         This function makes calls to numpy to generate the random values."""
         pass
 
-    def random_gaussian(self, *args: float) -> float:
+    def random_gaussian(
+        self,
+        *args: int | np.integer | float,
+    ) -> float:
         """Generates random gaussian values.
 
         Methods
@@ -1485,16 +1522,16 @@ class MathMixin:
         You can use any of the following signatures:
 
          * random_gaussian() -> float
-         * random_gaussian(loc: float, /) -> float
-         * random_gaussian(loc: float, scale: float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, /) -> float
+         * random_gaussian(loc: int | np.integer | float, int | np.integer | float: float, /) -> float
 
         Parameters
         ----------
 
-        loc: float
+        loc: int | np.integer | float
             average of randomly selected numbers
 
-        scale: float
+        scale: int | np.integer | float
             standard deviation of randomly selected numbers
 
         Notes
