@@ -25,7 +25,6 @@ def _non_py5_stacklevel():
 class MathMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._instance = kwargs["instance"]
         self._init_math_mixin()
 
     def _init_math_mixin(self):

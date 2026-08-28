@@ -76,7 +76,6 @@ class PixelArray:
 class PixelMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._instance = kwargs["instance"]
         self._np_pixels = None
         self.pixels = PixelArray(self._instance)
 
