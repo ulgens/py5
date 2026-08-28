@@ -1263,10 +1263,10 @@ class MathMixin:
 
         This function's randomness can be influenced by `random_seed()`, and makes calls
         to numpy to select the random items."""
-        if len(seq):
-            return seq[self._rng.integers(0, len(seq))]
-        else:
+        if not len(seq):
             return None
+
+        return self._rng.choice(seq)
 
     def random_sample(
         self, seq: Sequence[Any], size: int = 1, replace: bool = True
