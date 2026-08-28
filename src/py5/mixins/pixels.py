@@ -79,10 +79,6 @@ class PixelMixin:
         self._np_pixels = None
         self.pixels = PixelArray(self._instance)
 
-    def _replace_instance(self, new_instance):
-        self._instance = new_instance
-        super()._replace_instance(new_instance)
-
     def _init_np_pixels(self):
         width = self.pixel_width if hasattr(self, "pixel_width") else self.width
         height = self.pixel_height if hasattr(self, "pixel_height") else self.height
