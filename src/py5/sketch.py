@@ -429,46 +429,36 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             )
         args = py5_options + [""] + sketch_args
 
-        try:
-            if _osx_alt_run_method and platform.system() == "Darwin":
-                from PyObjCTools import AppHelper  # type: ignore
+        if _osx_alt_run_method and platform.system() == "Darwin":
+            from PyObjCTools import AppHelper  # type: ignore
 
-                def run():
-                    Sketch._cls.runSketch(args, self._instance)
-                    if not self._environ.in_ipython_session:
-                        # need to call System.exit() in Java to stop the sketch
-                        # would never get past runConsoleEventLoop() anyway
-                        # because that doesn't return
-                        try:
-                            self._instance.allowSystemExit()
-                            while not self.is_dead:
-                                time.sleep(0.05)
-                            if self.is_dead_from_error:
-                                surface = self.get_surface()
-                                while not surface.is_stopped():
-                                    time.sleep(0.05)
-                            AppHelper.stopEventLoop()
-                        except Exception as e:
-                            # exception might be thrown because the JVM gets
-                            # shut down forcefully
-                            pass
-
-                if block == False and not self._environ.in_ipython_session:
-                    self.println(
-                        "On macOS, blocking is mandatory when Sketch is not run through Jupyter. This applies to all renderers.",
-                        stderr=True,
-                    )
-
-                proxy = jpype.JProxy("java.lang.Runnable", dict(run=run))
-                jpype.JClass("java.lang.Thread")(proxy).start()
-                if not self._environ.in_ipython_session:
-                    AppHelper.runConsoleEventLoop()
-            else:
+            def run():
                 Sketch._cls.runSketch(args, self._instance)
-        except Exception as e:
-            self.println(
-                "Java exception thrown by Sketch.runSketch:\n" + str(e), stderr=True
-            )
+                if not self._environ.in_ipython_session:
+                    # need to call System.exit() in Java to stop the sketch
+                    # would never get past runConsoleEventLoop() anyway
+                    # because that doesn't return
+                    self._instance.allowSystemExit()
+                    while not self.is_dead:
+                        time.sleep(0.05)
+                    if self.is_dead_from_error:
+                        surface = self.get_surface()
+                        while not surface.is_stopped():
+                            time.sleep(0.05)
+                    AppHelper.stopEventLoop()
+
+            if block == False and not self._environ.in_ipython_session:
+                self.println(
+                    "On macOS, blocking is mandatory when Sketch is not run through Jupyter. This applies to all renderers.",
+                    stderr=True,
+                )
+
+            proxy = jpype.JProxy("java.lang.Runnable", dict(run=run))
+            jpype.JClass("java.lang.Thread")(proxy).start()
+            if not self._environ.in_ipython_session:
+                AppHelper.runConsoleEventLoop()
+        else:
+            Sketch._cls.runSketch(args, self._instance)
 
         if platform.system() == "Darwin" and self._environ.in_ipython_session and block:
             if (renderer := self._instance.getRendererName()) in [
