@@ -425,7 +425,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             and _PY5_LAST_WINDOW_Y is not None
         ):
             py5_options.append(
-                "--location=" + str(_PY5_LAST_WINDOW_X) + "," + str(_PY5_LAST_WINDOW_Y)
+                f"--location={_PY5_LAST_WINDOW_X},{_PY5_LAST_WINDOW_Y}"
             )
         args = py5_options + [""] + sketch_args
 
