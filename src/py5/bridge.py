@@ -371,9 +371,6 @@ class Py5Bridge:
 
     @JOverride
     def shutdown(self):
-        try:
-            self._sketch._shutdown()
-            self._is_terminated = True
-            self.terminate_hooks()
-        except Exception:
-            self._sketch.println("exception in sketch shutdown sequence", stderr=True)
+        self._sketch._shutdown()
+        self._is_terminated = True
+        self.terminate_hooks()
